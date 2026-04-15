@@ -1,47 +1,258 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matura Study App - Geography</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Geografia – Matura</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            min-height: 100vh;
+        }
+
+        /* ── Header ── */
+        header {
+            background: #2b6cb0;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        header h1 { font-size: 1.4rem; }
+
+        #btn-back {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #fff;
+            padding: .4rem .9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: .9rem;
+            display: none;
+        }
+
+        #btn-back:hover { background: rgba(255,255,255,0.35); }
+
+        /* ── Views ── */
+        .view { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; }
+        .view.active { display: block; }
+
+        /* ── Działy (title card) ── */
+        #view-dzialy h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: .4rem;
+            color: #2b6cb0;
+        }
+
+        #view-dzialy .subtitle {
+            color: #718096;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .dzialy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .dzial-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+            border-left: 5px solid #2b6cb0;
+            transition: transform .15s, box-shadow .15s;
+        }
+
+        .dzial-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(0,0,0,.12);
+        }
+
+        .dzial-card .icon { font-size: 2rem; margin-bottom: .6rem; }
+        .dzial-card h3 { font-size: 1.1rem; color: #2d3748; }
+        .dzial-card p  { font-size: .85rem; color: #718096; margin-top: .3rem; }
+
+        /* ── Dział view ── */
+        #view-dzial h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2b6cb0;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ── Tabs ── */
+        .tabs {
+            display: flex;
+            gap: .5rem;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: .6rem 1.2rem;
+            cursor: pointer;
+            font-size: .95rem;
+            color: #718096;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: color .15s, border-color .15s;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab-btn:hover { color: #2b6cb0; }
+
+        .tab-btn.active {
+            color: #2b6cb0;
+            border-bottom-color: #2b6cb0;
+            font-weight: 600;
+        }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* ── Tab content placeholders ── */
+        .placeholder-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,.06);
+            color: #718096;
+            text-align: center;
+        }
+
+        .placeholder-card .big-icon { font-size: 3rem; margin-bottom: .8rem; }
+        .placeholder-card p { font-size: 1rem; }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #a0aec0;
+            font-size: .85rem;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Geography Matura Study App</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Topics</a></li>
-                <li><a href="#">Practice Tests</a></li>
-                <li><a href="#">Resources</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="intro">
-            <h2>Welcome</h2>
-            <p>This app is designed to help you prepare for your matura exam in geography.</p>
-        </section>
-        <section id="topics">
-            <h2>Topics</h2>
-            <ul>
-                <li><a href="#">Physical Geography</a></li>
-                <li><a href="#">Human Geography</a></li>
-                <li><a href="#">Environmental Geography</a></li>
-            </ul>
-        </section>
-        <section id="practice-tests">
-            <h2>Practice Tests</h2>
-            <p>Test your knowledge with our practice tests.</p>
-        </section>
-        <section id="resources">
-            <h2>Resources</h2>
-            <p>Access various resources to aid your study.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Matura Study App</p>
-    </footer>
+
+<header>
+    <button id="btn-back" onclick="showDzialy()">&#8592; Działy</button>
+    <h1 id="header-title">🌍 Geografia – Matura</h1>
+</header>
+
+<main>
+
+    <!-- ══ WIDOK: Karta tytułowa Działy ══ -->
+    <div id="view-dzialy" class="view active">
+        <h2>Działy</h2>
+        <p class="subtitle">Wybierz dział, który chcesz powtórzyć.</p>
+
+        <div class="dzialy-grid">
+            <div class="dzial-card" onclick="showDzial('astronomia')">
+                <div class="icon">🔭</div>
+                <h3>Astronomia</h3>
+                <p>Układ Słoneczny, ruchy Ziemi, strefy czasowe i więcej.</p>
+            </div>
+            <!-- kolejne działy można dodać tutaj analogicznie -->
+        </div>
+    </div>
+
+    <!-- ══ WIDOK: Dział (zakładki) ══ -->
+    <div id="view-dzial" class="view">
+
+        <!-- ─── Astronomia ─── -->
+        <div id="dzial-astronomia" class="dzial-content" style="display:none">
+            <h2>🔭 Astronomia</h2>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(this, 'astro-teoria')">📖 Teoria</button>
+                <button class="tab-btn"        onclick="switchTab(this, 'astro-quizy')">🧠 Quizy</button>
+                <button class="tab-btn"        onclick="switchTab(this, 'astro-fiszki')">🃏 Fiszki</button>
+                <button class="tab-btn"        onclick="switchTab(this, 'astro-materialy')">📂 Materiały</button>
+            </div>
+
+            <div id="astro-teoria" class="tab-panel active">
+                <div class="placeholder-card">
+                    <div class="big-icon">📖</div>
+                    <p>Tu pojawi się teoria z astronomii – notatki, wykresy i opisy.</p>
+                </div>
+            </div>
+
+            <div id="astro-quizy" class="tab-panel">
+                <div class="placeholder-card">
+                    <div class="big-icon">🧠</div>
+                    <p>Tu pojawią się quizy sprawdzające wiedzę z astronomii.</p>
+                </div>
+            </div>
+
+            <div id="astro-fiszki" class="tab-panel">
+                <div class="placeholder-card">
+                    <div class="big-icon">🃏</div>
+                    <p>Tu pojawią się fiszki do nauki pojęć astronomicznych.</p>
+                </div>
+            </div>
+
+            <div id="astro-materialy" class="tab-panel">
+                <div class="placeholder-card">
+                    <div class="big-icon">📂</div>
+                    <p>Tu znajdziesz dodatkowe materiały i linki do astronomii.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Matura Study App</p>
+</footer>
+
+<script>
+    function showDzialy() {
+        document.getElementById('view-dzialy').classList.add('active');
+        document.getElementById('view-dzial').classList.remove('active');
+        document.getElementById('btn-back').style.display = 'none';
+        document.getElementById('header-title').textContent = '🌍 Geografia – Matura';
+    }
+
+    function showDzial(id) {
+        // ukryj wszystkie treści działów
+        document.querySelectorAll('.dzial-content').forEach(el => el.style.display = 'none');
+
+        const content = document.getElementById('dzial-' + id);
+        if (!content) return;
+        content.style.display = 'block';
+
+        // reset do pierwszej zakładki
+        content.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i === 0));
+        content.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === 0));
+
+        document.getElementById('view-dzialy').classList.remove('active');
+        document.getElementById('view-dzial').classList.add('active');
+        document.getElementById('btn-back').style.display = 'inline-block';
+        document.getElementById('header-title').textContent = '🌍 Geografia – Matura';
+    }
+
+    function switchTab(btn, panelId) {
+        const container = btn.closest('.dzial-content');
+        container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        container.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(panelId).classList.add('active');
+    }
+</script>
+
 </body>
 </html>
