@@ -1,47 +1,498 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matura Study App - Geography</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geografia – Matura</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f9;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #1a6b3a;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    header h1 { font-size: 1.5rem; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #c8f5d8;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color .2s;
+    }
+
+    nav a:hover { color: #fff; }
+
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* ---- cards ---- */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: #1a6b3a;
+      color: #fff;
+      padding: .75rem 1.25rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    .card-header::after { content: '▼'; font-size: .8rem; transition: transform .25s; }
+    .card-header.open::after { transform: rotate(-180deg); }
+
+    .card-body {
+      padding: 1.25rem;
+      display: none;
+    }
+
+    .card-body.visible { display: block; }
+
+    /* ---- topic grid ---- */
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .topic-item {
+      background: #eaf7ef;
+      border: 1px solid #b2dfc4;
+      border-radius: 6px;
+      padding: .75rem 1rem;
+      font-weight: 600;
+      color: #1a6b3a;
+    }
+
+    /* ---- definition list ---- */
+    dl { display: grid; grid-template-columns: auto 1fr; gap: .4rem .75rem; }
+    dt { font-weight: 700; color: #1a6b3a; white-space: nowrap; }
+    dd { border-bottom: 1px dashed #ddd; padding-bottom: .35rem; }
+
+    /* ---- quiz ---- */
+    .quiz { margin-top: .5rem; }
+
+    .question-block {
+      background: #f9fafb;
+      border: 1px solid #dde3ea;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .question-block p { font-weight: 600; margin-bottom: .5rem; }
+
+    .options label {
+      display: block;
+      cursor: pointer;
+      padding: .25rem .5rem;
+      border-radius: 4px;
+      transition: background .15s;
+    }
+
+    .options label:hover { background: #eaf7ef; }
+    .options input { margin-right: .5rem; }
+
+    .check-btn {
+      background: #1a6b3a;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: .6rem 1.4rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .2s;
+      margin-top: .75rem;
+    }
+
+    .check-btn:hover { background: #145530; }
+
+    .result {
+      margin-top: .75rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .correct { color: #1a6b3a; }
+    .wrong { color: #c0392b; }
+
+    /* ---- flashcards ---- */
+    .flashcard-area { text-align: center; }
+
+    .flashcard {
+      background: #1a6b3a;
+      color: #fff;
+      border-radius: 10px;
+      padding: 2rem 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s;
+      margin-bottom: .75rem;
+    }
+
+    .flashcard.flipped { background: #145530; }
+
+    .fc-controls { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+
+    .fc-btn {
+      background: #fff;
+      color: #1a6b3a;
+      border: 2px solid #1a6b3a;
+      border-radius: 6px;
+      padding: .5rem 1.2rem;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .fc-btn:hover { background: #1a6b3a; color: #fff; }
+
+    .fc-counter { color: #555; margin-bottom: .75rem; }
+
+    /* ---- table ---- */
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #1a6b3a; color: #fff; padding: .6rem .9rem; text-align: left; }
+    td { padding: .55rem .9rem; border-bottom: 1px solid #e4eaef; }
+    tr:nth-child(even) td { background: #f4f6f9; }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #1a6b3a;
+      color: #c8f5d8;
+      font-size: .9rem;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Geography Matura Study App</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Topics</a></li>
-                <li><a href="#">Practice Tests</a></li>
-                <li><a href="#">Resources</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="intro">
-            <h2>Welcome</h2>
-            <p>This app is designed to help you prepare for your matura exam in geography.</p>
-        </section>
-        <section id="topics">
-            <h2>Topics</h2>
-            <ul>
-                <li><a href="#">Physical Geography</a></li>
-                <li><a href="#">Human Geography</a></li>
-                <li><a href="#">Environmental Geography</a></li>
-            </ul>
-        </section>
-        <section id="practice-tests">
-            <h2>Practice Tests</h2>
-            <p>Test your knowledge with our practice tests.</p>
-        </section>
-        <section id="resources">
-            <h2>Resources</h2>
-            <p>Access various resources to aid your study.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Matura Study App</p>
-    </footer>
+
+<header>
+  <h1>🌍 Geografia – Matura</h1>
+  <nav>
+    <ul>
+      <li><a href="#dzialy">Działy</a></li>
+      <li><a href="#definicje">Definicje</a></li>
+      <li><a href="#fiszki">Fiszki</a></li>
+      <li><a href="#quiz">Quiz</a></li>
+      <li><a href="#tabele">Tabele</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ==================== DZIAŁY ==================== -->
+  <section id="dzialy">
+    <div class="card">
+      <div class="card-header open" onclick="toggle(this)">📚 Działy tematyczne</div>
+      <div class="card-body visible">
+        <div class="topic-grid">
+          <div class="topic-item">🌋 Geografia fizyczna</div>
+          <div class="topic-item">🌊 Hydrologia</div>
+          <div class="topic-item">🌬️ Klimatologia</div>
+          <div class="topic-item">🏔️ Geomorfologia</div>
+          <div class="topic-item">🌱 Gleby i roślinność</div>
+          <div class="topic-item">👥 Geografia ludności</div>
+          <div class="topic-item">🏙️ Urbanizacja</div>
+          <div class="topic-item">🌾 Rolnictwo</div>
+          <div class="topic-item">🏭 Przemysł</div>
+          <div class="topic-item">🚢 Transport i handel</div>
+          <div class="topic-item">♻️ Środowisko i ekologia</div>
+          <div class="topic-item">🗺️ Kartografia</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DEFINICJE ==================== -->
+  <section id="definicje">
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">📖 Kluczowe definicje</div>
+      <div class="card-body">
+        <dl>
+          <dt>Izobara</dt>
+          <dd>Linia łącząca punkty o jednakowym ciśnieniu atmosferycznym na mapie synoptycznej.</dd>
+
+          <dt>Izoterma</dt>
+          <dd>Linia łącząca punkty o jednakowej temperaturze powietrza.</dd>
+
+          <dt>Depresja</dt>
+          <dd>Obszar leżący poniżej poziomu morza.</dd>
+
+          <dt>Litosfera</dt>
+          <dd>Zewnętrzna, sztywna powłoka Ziemi obejmująca skorupę i górny płaszcz.</dd>
+
+          <dt>Urbanizacja</dt>
+          <dd>Proces wzrostu liczby ludności miejskiej oraz rozwoju miast.</dd>
+
+          <dt>Migracja</dt>
+          <dd>Przemieszczanie się ludności z jednego miejsca do drugiego w celu osiedlenia się.</dd>
+
+          <dt>Przyrost naturalny</dt>
+          <dd>Różnica między liczbą urodzeń a liczbą zgonów w danym czasie i obszarze.</dd>
+
+          <dt>PKB</dt>
+          <dd>Produkt Krajowy Brutto – wartość wszystkich dóbr i usług wytworzonych w kraju w ciągu roku.</dd>
+
+          <dt>Strefa klimatyczna</dt>
+          <dd>Pas Ziemi o zbliżonych warunkach klimatycznych, wyznaczany głównie przez szerokość geograficzną.</dd>
+
+          <dt>Wododział</dt>
+          <dd>Linia lub obszar rozgraniczający zlewnie dwóch różnych rzek lub dorzeczy.</dd>
+
+          <dt>Zlodowacenie</dt>
+          <dd>Okres, w którym duże obszary lądów były pokryte lodem lodowcowym.</dd>
+
+          <dt>Erozja</dt>
+          <dd>Proces niszczenia skał i gleby przez wodę, wiatr lub lód.</dd>
+
+          <dt>Delta</dt>
+          <dd>Stożkowate rozszerzenie ujścia rzeki, powstałe z osadów naniesionych przez nurt.</dd>
+
+          <dt>Meander</dt>
+          <dd>Zakole rzeki powstałe w wyniku jej erozji bocznej na równinnym terenie.</dd>
+
+          <dt>Antycyklon</dt>
+          <dd>Obszar wysokiego ciśnienia atmosferycznego z wiatrami wiejącymi od centrum na zewnątrz.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FISZKI ==================== -->
+  <section id="fiszki">
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">🃏 Fiszki – Kapitały świata</div>
+      <div class="card-body">
+        <div class="flashcard-area">
+          <p class="fc-counter" id="fc-counter">1 / 10</p>
+          <div class="flashcard" id="flashcard" onclick="flipCard()">Kliknij, aby zobaczyć pytanie</div>
+          <div class="fc-controls">
+            <button class="fc-btn" onclick="prevCard()">← Poprzednia</button>
+            <button class="fc-btn" onclick="flipCard()">Odwróć</button>
+            <button class="fc-btn" onclick="nextCard()">Następna →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== QUIZ ==================== -->
+  <section id="quiz">
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">🧩 Quiz – Sprawdź wiedzę</div>
+      <div class="card-body">
+        <div class="quiz" id="quiz-container"></div>
+        <button class="check-btn" onclick="checkQuiz()">Sprawdź odpowiedzi</button>
+        <div class="result" id="quiz-result"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TABELE ==================== -->
+  <section id="tabele">
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">📊 Największe rzeki świata</div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr><th>Rzeka</th><th>Długość (km)</th><th>Kontynent</th><th>Uchodzi do</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Nil</td><td>6 650</td><td>Afryka</td><td>Morze Śródziemne</td></tr>
+            <tr><td>Amazonka</td><td>6 400</td><td>Ameryka Pd.</td><td>Ocean Atlantycki</td></tr>
+            <tr><td>Jangcy</td><td>6 300</td><td>Azja</td><td>Morze Wschodniochińskie</td></tr>
+            <tr><td>Missisipi-Missouri</td><td>6 275</td><td>Ameryka Pn.</td><td>Zatoka Meksykańska</td></tr>
+            <tr><td>Jenisej</td><td>5 539</td><td>Azja</td><td>Morze Karskie</td></tr>
+            <tr><td>Ob</td><td>5 410</td><td>Azja</td><td>Zatoka Obska</td></tr>
+            <tr><td>Huang He</td><td>5 464</td><td>Azja</td><td>Morze Żółte</td></tr>
+            <tr><td>Kongo</td><td>4 700</td><td>Afryka</td><td>Ocean Atlantycki</td></tr>
+            <tr><td>Amur</td><td>4 444</td><td>Azja</td><td>Morze Ochockie</td></tr>
+            <tr><td>Wołga</td><td>3 531</td><td>Europa</td><td>Morze Kaspijskie</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">📊 Strefy klimatyczne</div>
+      <div class="card-body">
+        <table>
+          <thead>
+            <tr><th>Strefa</th><th>Szerokość geogr.</th><th>Temperatura</th><th>Opady</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Równikowa</td><td>0°–10°</td><td>Wysoka cały rok (~26 °C)</td><td>Bardzo obfite (>2000 mm)</td></tr>
+            <tr><td>Zwrotnikowa wilgotna</td><td>10°–20°</td><td>Wysoka z porą deszczową</td><td>Sezonowe (1000–2000 mm)</td></tr>
+            <tr><td>Zwrotnikowa sucha</td><td>20°–30°</td><td>Wysoka, duże dobowe wahania</td><td>Małe (<250 mm)</td></tr>
+            <tr><td>Podzwrotnikowa</td><td>30°–40°</td><td>Gorące lato, łagodna zima</td><td>Sezonowe</td></tr>
+            <tr><td>Umiarkowana</td><td>40°–60°</td><td>4 wyraźne pory roku</td><td>Równomierne (600–800 mm)</td></tr>
+            <tr><td>Subpolarna</td><td>60°–70°</td><td>Długie mroźne zimy</td><td>Małe (<400 mm)</td></tr>
+            <tr><td>Polarna</td><td>>70°</td><td>Poniżej 0 °C przez większość roku</td><td>Bardzo małe (<200 mm)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 Geografia – Matura | Powodzenia na egzaminie! 🍀</p>
+</footer>
+
+<script>
+  /* ---- accordion ---- */
+  function toggle(header) {
+    header.classList.toggle('open');
+    const body = header.nextElementSibling;
+    body.classList.toggle('visible');
+  }
+
+  /* ---- flashcards ---- */
+  const flashcards = [
+    { q: 'Stolica Brazylii?', a: 'Brasília' },
+    { q: 'Stolica Australii?', a: 'Canberra' },
+    { q: 'Stolica Kanady?', a: 'Ottawa' },
+    { q: 'Stolica Japonii?', a: 'Tokio' },
+    { q: 'Stolica Indii?', a: 'New Delhi' },
+    { q: 'Stolica Egiptu?', a: 'Kair' },
+    { q: 'Stolica Argentyny?', a: 'Buenos Aires' },
+    { q: 'Stolica Rosji?', a: 'Moskwa' },
+    { q: 'Stolica RPA?', a: 'Pretoria / Kapsztad / Bloemfontein' },
+    { q: 'Stolica Meksyku?', a: 'Miasto Meksyk' },
+  ];
+
+  let fcIndex = 0;
+  let fcFlipped = false;
+
+  function updateCard() {
+    const el = document.getElementById('flashcard');
+    const counter = document.getElementById('fc-counter');
+    el.textContent = fcFlipped ? flashcards[fcIndex].a : flashcards[fcIndex].q;
+    el.className = 'flashcard' + (fcFlipped ? ' flipped' : '');
+    counter.textContent = (fcIndex + 1) + ' / ' + flashcards.length;
+  }
+
+  function flipCard() { fcFlipped = !fcFlipped; updateCard(); }
+  function nextCard() { fcIndex = (fcIndex + 1) % flashcards.length; fcFlipped = false; updateCard(); }
+  function prevCard() { fcIndex = (fcIndex - 1 + flashcards.length) % flashcards.length; fcFlipped = false; updateCard(); }
+
+  updateCard();
+
+  /* ---- quiz ---- */
+  const questions = [
+    {
+      q: 'Która rzeka jest najdłuższa na świecie?',
+      options: ['Amazonka', 'Nil', 'Jangcy', 'Missisipi'],
+      correct: 1
+    },
+    {
+      q: 'Jaki jest największy kontynent pod względem powierzchni?',
+      options: ['Afryka', 'Ameryka Północna', 'Azja', 'Europa'],
+      correct: 2
+    },
+    {
+      q: 'W której strefie klimatycznej leży Polska?',
+      options: ['Zwrotnikowej', 'Umiarkowanej', 'Polarnej', 'Równikowej'],
+      correct: 1
+    },
+    {
+      q: 'Najwyższy szczyt świata to:',
+      options: ['K2', 'Mont Blanc', 'Kilimandżaro', 'Mount Everest'],
+      correct: 3
+    },
+    {
+      q: 'Przyrost naturalny to:',
+      options: [
+        'Różnica urodzeń i zgonów',
+        'Suma urodzeń i migracji',
+        'Różnica imigracji i emigracji',
+        'Liczba urodzeń na 1000 mieszkańców'
+      ],
+      correct: 0
+    },
+    {
+      q: 'Która z wysp jest największa na świecie?',
+      options: ['Nowa Gwinea', 'Borneo', 'Grenlandia', 'Madagaskar'],
+      correct: 2
+    },
+    {
+      q: 'Skała osadowa to:',
+      options: ['Granit', 'Bazalt', 'Wapień', 'Gnejs'],
+      correct: 2
+    },
+  ];
+
+  const qContainer = document.getElementById('quiz-container');
+
+  questions.forEach((q, i) => {
+    const block = document.createElement('div');
+    block.className = 'question-block';
+    block.innerHTML = `<p>${i + 1}. ${q.q}</p><div class="options">${
+      q.options.map((o, j) =>
+        `<label><input type="radio" name="q${i}" value="${j}"> ${o}</label>`
+      ).join('')
+    }</div>`;
+    qContainer.appendChild(block);
+  });
+
+  function checkQuiz() {
+    let score = 0;
+    questions.forEach((q, i) => {
+      const sel = document.querySelector(`input[name="q${i}"]:checked`);
+      const block = document.querySelectorAll('.question-block')[i];
+      block.style.borderColor = '';
+      if (sel && parseInt(sel.value) === q.correct) {
+        score++;
+        block.style.borderColor = '#1a6b3a';
+      } else {
+        block.style.borderColor = '#c0392b';
+      }
+    });
+    const res = document.getElementById('quiz-result');
+    res.textContent = `Wynik: ${score} / ${questions.length}`;
+    res.className = 'result ' + (score >= questions.length * 0.6 ? 'correct' : 'wrong');
+  }
+</script>
 </body>
 </html>
