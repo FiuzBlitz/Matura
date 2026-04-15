@@ -1,47 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matura Study App - Geography</title>
+    <title>Aplikacja Maturalna – Geografia</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Geography Matura Study App</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Topics</a></li>
-                <li><a href="#">Practice Tests</a></li>
-                <li><a href="#">Resources</a></li>
-            </ul>
-        </nav>
+        <div class="header-inner">
+            <h1>🌍 Matura z Geografii</h1>
+            <nav>
+                <ul>
+                    <li><a href="#intro">Strona główna</a></li>
+                    <li><a href="#topics">Tematy</a></li>
+                    <li><a href="#practice-tests">Testy</a></li>
+                    <li><a href="#resources">Zasoby</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main>
-        <section id="intro">
-            <h2>Welcome</h2>
-            <p>This app is designed to help you prepare for your matura exam in geography.</p>
+        <section id="intro" class="card">
+            <h2>Witaj!</h2>
+            <p>Ta aplikacja pomoże Ci przygotować się do egzaminu maturalnego z geografii. Wybierz temat lub przejdź do testów, aby sprawdzić swoją wiedzę.</p>
         </section>
-        <section id="topics">
-            <h2>Topics</h2>
-            <ul>
-                <li><a href="#">Physical Geography</a></li>
-                <li><a href="#">Human Geography</a></li>
-                <li><a href="#">Environmental Geography</a></li>
+        <section id="topics" class="card">
+            <h2>Tematy</h2>
+            <ul class="topic-list">
+                <li><a href="#">🏔️ Geografia fizyczna</a></li>
+                <li><a href="#">🏙️ Geografia człowieka</a></li>
+                <li><a href="#">🌱 Geografia środowiskowa</a></li>
             </ul>
         </section>
-        <section id="practice-tests">
-            <h2>Practice Tests</h2>
-            <p>Test your knowledge with our practice tests.</p>
+        <section id="practice-tests" class="card">
+            <h2>Testy próbne</h2>
+            <p>Sprawdź swoją wiedzę dzięki naszym testom próbnym i przygotuj się skutecznie do matury.</p>
         </section>
-        <section id="resources">
-            <h2>Resources</h2>
-            <p>Access various resources to aid your study.</p>
+        <section id="resources" class="card">
+            <h2>Zasoby</h2>
+            <p>Skorzystaj z materiałów pomocniczych, które ułatwią Ci naukę i powtórkę przed egzaminem.</p>
         </section>
     </main>
     <footer>
-        <p>&copy; 2026 Matura Study App</p>
+        <p>&copy; 2026 Aplikacja Maturalna – Geografia</p>
     </footer>
 </body>
 </html>
