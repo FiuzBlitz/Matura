@@ -1,47 +1,309 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matura Study App - Geography</title>
+    <title>Matura z Geografii – Nauka i Przygotowanie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Geography Matura Study App</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Topics</a></li>
-                <li><a href="#">Practice Tests</a></li>
-                <li><a href="#">Resources</a></li>
+
+    <!-- NAWIGACJA -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">🌍 MaturaGeo</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#witaj" class="nav-link">Strona główna</a></li>
+                <li><a href="#tematy" class="nav-link">Tematy</a></li>
+                <li><a href="#testy" class="nav-link">Testy</a></li>
+                <li><a href="#zasoby" class="nav-link">Zasoby</a></li>
             </ul>
-        </nav>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero" id="witaj">
+        <div class="hero-content">
+            <span class="hero-badge">📚 Przygotowanie do Matury</span>
+            <h1>Zdaj maturę<br><span class="hero-accent">z geografii</span></h1>
+            <p class="hero-subtitle">Kompleksowe materiały, testy i zasoby — wszystko, czego potrzebujesz, aby osiągnąć najlepszy wynik na egzaminie maturalnym z geografii.</p>
+            <div class="hero-buttons">
+                <a href="#tematy" class="btn btn-primary">Zacznij naukę</a>
+                <a href="#testy" class="btn btn-secondary">Ćwicz testy</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Działy tematyczne</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Bezpłatnie</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-number">2026</span>
+                    <span class="stat-label">Aktualne materiały</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="globe-ring ring-1"></div>
+            <div class="globe-ring ring-2"></div>
+            <div class="globe-ring ring-3"></div>
+            <div class="globe-emoji">🌍</div>
+        </div>
     </header>
+
     <main>
-        <section id="intro">
-            <h2>Welcome</h2>
-            <p>This app is designed to help you prepare for your matura exam in geography.</p>
+
+        <!-- TEMATY -->
+        <section id="tematy" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Materiały</span>
+                    <h2 class="section-title">Działy tematyczne</h2>
+                    <p class="section-desc">Wybierz dział i rozpocznij naukę. Każdy temat zawiera szczegółowe omówienie zagadnień maturalnych.</p>
+                </div>
+                <div class="cards-grid">
+                    <article class="card card--blue">
+                        <div class="card-icon">🏔️</div>
+                        <h3 class="card-title">Geografia fizyczna</h3>
+                        <p class="card-desc">Budowa Ziemi, tektonika płyt, geomorfologia, hydrologia, klimatologia oraz strefy krajobrazowe świata.</p>
+                        <ul class="card-topics">
+                            <li>Budowa geologiczna</li>
+                            <li>Rzeźba terenu</li>
+                            <li>Klimat i pogoda</li>
+                            <li>Hydrologia</li>
+                        </ul>
+                        <a href="#" class="card-link">Ucz się →</a>
+                    </article>
+                    <article class="card card--green">
+                        <div class="card-icon">🏙️</div>
+                        <h3 class="card-title">Geografia społeczno-ekonomiczna</h3>
+                        <p class="card-desc">Ludność, urbanizacja, gospodarka światowa, rolnictwo, przemysł i usługi oraz handel międzynarodowy.</p>
+                        <ul class="card-topics">
+                            <li>Demografa i migracje</li>
+                            <li>Urbanizacja</li>
+                            <li>Rolnictwo i przemysł</li>
+                            <li>Handel i globalizacja</li>
+                        </ul>
+                        <a href="#" class="card-link">Ucz się →</a>
+                    </article>
+                    <article class="card card--orange">
+                        <div class="card-icon">🌿</div>
+                        <h3 class="card-title">Geografia środowiskowa</h3>
+                        <p class="card-desc">Problemy ekologiczne, ochrona środowiska, zmiany klimatu, zasoby naturalne i zrównoważony rozwój.</p>
+                        <ul class="card-topics">
+                            <li>Zmiany klimatu</li>
+                            <li>Ochrona środowiska</li>
+                            <li>Zasoby naturalne</li>
+                            <li>Zrównoważony rozwój</li>
+                        </ul>
+                        <a href="#" class="card-link">Ucz się →</a>
+                    </article>
+                </div>
+            </div>
         </section>
-        <section id="topics">
-            <h2>Topics</h2>
-            <ul>
-                <li><a href="#">Physical Geography</a></li>
-                <li><a href="#">Human Geography</a></li>
-                <li><a href="#">Environmental Geography</a></li>
-            </ul>
+
+        <!-- TESTY -->
+        <section id="testy" class="section section--alt">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Ćwiczenia</span>
+                    <h2 class="section-title">Testy maturalne</h2>
+                    <p class="section-desc">Sprawdź swoją wiedzę, rozwiązując testy w stylu maturalnym. Poznaj swoje mocne i słabe strony.</p>
+                </div>
+                <div class="tests-grid">
+                    <div class="test-card">
+                        <div class="test-card__header test-card__header--easy">
+                            <span class="test-level">Poziom podstawowy</span>
+                            <span class="test-icon">✅</span>
+                        </div>
+                        <div class="test-card__body">
+                            <h3>Test próbny – podstawa</h3>
+                            <p>Sprawdź opanowanie materiału na poziomie podstawowym zgodnie z wymaganiami CKE.</p>
+                            <div class="test-meta">
+                                <span>⏱ 30 pytań</span>
+                                <span>📝 Wielokrotny wybór</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn--full">Rozpocznij test</a>
+                        </div>
+                    </div>
+                    <div class="test-card test-card--featured">
+                        <div class="test-card__header test-card__header--hard">
+                            <span class="test-level">Poziom rozszerzony</span>
+                            <span class="test-icon">🏆</span>
+                        </div>
+                        <div class="test-card__body">
+                            <h3>Test próbny – rozszerzenie</h3>
+                            <p>Kompleksowy test na poziomie rozszerzonym — pełna symulacja egzaminu maturalnego.</p>
+                            <div class="test-meta">
+                                <span>⏱ 60 pytań</span>
+                                <span>📝 Mix zadań</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn--full">Rozpocznij test</a>
+                        </div>
+                    </div>
+                    <div class="test-card">
+                        <div class="test-card__header test-card__header--mid">
+                            <span class="test-level">Tematyczny</span>
+                            <span class="test-icon">🎯</span>
+                        </div>
+                        <div class="test-card__body">
+                            <h3>Quiz tematyczny</h3>
+                            <p>Wybierz dział, który chcesz powtórzyć i sprawdź wiedzę z wybranego zakresu.</p>
+                            <div class="test-meta">
+                                <span>⏱ 20 pytań</span>
+                                <span>📝 Wybrany dział</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn--full">Wybierz dział</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
-        <section id="practice-tests">
-            <h2>Practice Tests</h2>
-            <p>Test your knowledge with our practice tests.</p>
+
+        <!-- ZASOBY -->
+        <section id="zasoby" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">Pomoce naukowe</span>
+                    <h2 class="section-title">Zasoby do nauki</h2>
+                    <p class="section-desc">Skorzystaj z dodatkowych materiałów, które pomogą Ci w skutecznym przygotowaniu do matury.</p>
+                </div>
+                <div class="resources-grid">
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">📄</div>
+                        <div class="resource-body">
+                            <h3>Arkusze maturalne CKE</h3>
+                            <p>Oficjalne arkusze egzaminacyjne z poprzednich lat wraz z modelowymi odpowiedziami.</p>
+                        </div>
+                        <span class="resource-arrow">→</span>
+                    </a>
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">🗺️</div>
+                        <div class="resource-body">
+                            <h3>Atlasy i mapy</h3>
+                            <p>Interaktywne mapy geograficzne i atlasy pomocne przy nauce regionów świata.</p>
+                        </div>
+                        <span class="resource-arrow">→</span>
+                    </a>
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">📊</div>
+                        <div class="resource-body">
+                            <h3>Tabele i dane statystyczne</h3>
+                            <p>Aktualne dane demograficzne, gospodarcze i środowiskowe niezbędne na maturze.</p>
+                        </div>
+                        <span class="resource-arrow">→</span>
+                    </a>
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">🎥</div>
+                        <div class="resource-body">
+                            <h3>Wideo i animacje</h3>
+                            <p>Lekcje wideo wyjaśniające trudne zagadnienia geograficzne w przystępny sposób.</p>
+                        </div>
+                        <span class="resource-arrow">→</span>
+                    </a>
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">📖</div>
+                        <div class="resource-body">
+                            <h3>Słownik pojęć</h3>
+                            <p>Definicje najważniejszych terminów geograficznych wymaganych na egzaminie maturalnym.</p>
+                        </div>
+                        <span class="resource-arrow">→</span>
+                    </a>
+                    <a href="#" class="resource-card">
+                        <div class="resource-icon">🧠</div>
+                        <div class="resource-body">
+                            <h3>Fiszki i powtórki</h3>
+                            <p>Gotowe zestawy fiszek do szybkiej powtórki kluczowych faktów i dat.</p>
+                        </div>
+                        <span class="resource-arrow">→</span>
+                    </a>
+                </div>
+            </div>
         </section>
-        <section id="resources">
-            <h2>Resources</h2>
-            <p>Access various resources to aid your study.</p>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2>Gotowy na maturę? 🎓</h2>
+                    <p>Zacznij przygotowania już dziś. Regularny trening to klucz do sukcesu na egzaminie maturalnym.</p>
+                    <a href="#tematy" class="btn btn-primary btn--large">Rozpocznij naukę teraz</a>
+                </div>
+            </div>
         </section>
+
     </main>
-    <footer>
-        <p>&copy; 2026 Matura Study App</p>
+
+    <!-- STOPKA -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="nav-logo">🌍 MaturaGeo</span>
+                    <p>Kompleksowa platforma do przygotowania się do matury z geografii.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Nawigacja</h4>
+                    <ul>
+                        <li><a href="#witaj">Strona główna</a></li>
+                        <li><a href="#tematy">Tematy</a></li>
+                        <li><a href="#testy">Testy</a></li>
+                        <li><a href="#zasoby">Zasoby</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Działy</h4>
+                    <ul>
+                        <li><a href="#">Geografia fizyczna</a></li>
+                        <li><a href="#">Geografia społeczna</a></li>
+                        <li><a href="#">Geografia środowiskowa</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MaturaGeo. Wszelkie prawa zastrzeżone.</p>
+            </div>
+        </div>
     </footer>
+
+    <script>
+        // Sticky navbar on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('navbar--scrolled', window.scrollY > 50);
+        });
+
+        // Mobile nav toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-links--open');
+        });
+
+        // Close mobile nav on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('nav-links--open'));
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
